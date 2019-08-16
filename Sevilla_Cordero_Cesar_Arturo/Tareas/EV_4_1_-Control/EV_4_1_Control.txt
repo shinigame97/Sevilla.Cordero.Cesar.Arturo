@@ -1,0 +1,24 @@
+parapadeo del led 
+ 
+#include mbed.h
+#include ros.h
+#include std_msgsEmpty.h
+
+rosNodeHandle nh;
+DigitalOut myled (LED1);
+
+void messageCb (const std_msgsEmpty & toggle_msg) {
+    myled =! myled; parpadea el led
+}
+
+rosSubscriberstd_msgsEmpty sub (toggle_led, & messageCb);
+
+int main () {
+    nh.initNode ();
+    nh.subscribe (sub);
+
+    mientras que (1) {
+        nh.spinOnce ();
+        wait_ms (1);
+    }
+}
